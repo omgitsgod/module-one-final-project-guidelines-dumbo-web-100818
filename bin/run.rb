@@ -1,12 +1,6 @@
 require_relative '../config/environment'
 
-class User
-@@all = ["Brian", "Cory", "Ryan"]
 
-def self.all
-  @@all
-end
-end
 
 puts "---------------------------------------------"
 puts "-                                           -"
