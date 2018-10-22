@@ -1,4 +1,4 @@
-class AddNotes < ActiveRecord::Migration
+class AddNotes < ActiveRecord::Migration[4.2]
   def change
     create_table :notes do |t|
       t.integer :user_id
