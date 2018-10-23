@@ -24,6 +24,8 @@ subject = Subject.all.find_by(name: subjecttemp)
 subject = subject
   puts "Rating?"
   rating = gets.chomp.to_i
+  puts "Message?"
+  content = gets.chomp
   puts "Bookmark?"
   puts "True/False"
   bookmark = gets.chomp
@@ -34,7 +36,7 @@ subject = subject
     when "false", "False", "no", "No"
       bookmark = false
   end
-    new_note = Note.create(user: self, subject: subject, rating: rating, bookmark: bookmark )
+    new_note = Note.create(user: self, subject: subject, content: content, rating: rating, bookmark: bookmark )
     self.notes << new_note
 else
   puts "Please try again"
