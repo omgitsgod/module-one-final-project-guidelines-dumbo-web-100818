@@ -9,7 +9,8 @@ puts "---------------------------------------------"
 
 
 def main
-user_instance = get_user
+user_instance = login
+homepage
 
 end
 
