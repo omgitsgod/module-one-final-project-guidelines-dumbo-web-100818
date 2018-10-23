@@ -2,6 +2,22 @@ class User < ActiveRecord::Base
 has_many :notes
 belongs_to :groups
 has_many :subjects, through: :notes
+<<<<<<< HEAD
+=======
+
+
+def create_a_note
+puts "Choose from subjects"
+
+self.subjects.each_with_index do |subject, index|
+  puts "#{index + 1}: #{subject.name}"
+end
+
+subjecttemp = gets.chomp
+
+y = Subject.all.map do |x|
+  x.name
+>>>>>>> 77f0ef6b190be7367958d918a1aed10c9e75826e
 end
 
 
