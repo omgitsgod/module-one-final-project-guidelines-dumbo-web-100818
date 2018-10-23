@@ -7,18 +7,21 @@ has_many :subjects, through: :notes
 def create_a_note
 puts "Choose from subjects"
 
-self.subjects.each_with_index do |subject, index|
-  puts "#{index + 1}: #{subject.name}"
-end
+#self.subjects.each_with_index do |subject, index|
+#  puts "#{index + 1}: #{subject.name}"
+#end
+
+puts Subject.all
 
 subjecttemp = gets.chomp
 
-y = self.subjects.map do |x|
+y = subject.all.map do |x|
   x.name
 end
 
 if y.include?(subjecttemp)
-  subject = self.subjects.find_by(name: subjecttemp)
+subject = self.subjects.find_by(name: subjecttemp)
+subject = subjecttemp
   puts "Rating?"
   rating = gets.chomp
   puts "Bookmark?"
