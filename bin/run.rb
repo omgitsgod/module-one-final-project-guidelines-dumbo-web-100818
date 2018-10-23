@@ -91,9 +91,9 @@ def settings(user_instance)
   puts "4 RETURN TO HOMEPAGE"
   choose = gets.chomp.to_i
   if choose == 1
-    change_name
+    change_name(user_instance)
   elsif choose == 2
-    change_pass
+    change_pass(user_instance)
   elsif choose == 3
     delete_notes
   elsif choose == 4
@@ -125,7 +125,7 @@ def change_pass(user_instance)
   puts "Your new password is #{'*' * pass.length}"
   puts "Returning to homepage."
   sleep(2)
-  homepage
+  homepage(user_instance)
 end
 
 # SETTINGS--------------------------------------------------------------
