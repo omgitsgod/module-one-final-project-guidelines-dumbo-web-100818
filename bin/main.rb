@@ -7,9 +7,17 @@ puts "-                                           -"
 puts "-         Welcome to Class Journals         -"
 puts "-                                           -"
 puts "---------------------------------------------"
-
+# binding.pry
 
 def main
+user_type
+
+puts "---------------------------------------------"
+puts "-                                           -"
+puts "-                LOGIN PAGE                 -"
+puts "-                                           -"
+puts "---------------------------------------------"
+
 user_instance = login
 
 

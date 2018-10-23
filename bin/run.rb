@@ -1,16 +1,42 @@
 require_relative '../config/environment'
 
+# NEW USER-----------------------------------------
+
+def user_type
+  puts "1. New User"
+  puts "2. Existing User"
+  user = gets.chomp.to_i
+  if user == 1
+    puts "Type new username"
+    newusername = gets.chomp.to_s
+    puts "Type in REAL name"
+    realname = gets.chomp.to_s
+    puts "Type new password"
+    temppass = gets.chomp.to_s
+    binding.pry
+    User.create(username: newusername, name:realname, password:temppass)
+
+    puts "New user #{newusername} created!"
+    sleep(1)
+  elsif user == 2
+    puts ""
+    puts ""
+  else
+    user_type
+  end
+end
+
 # LOGIN-------------------------------------------------
 def login
-  puts "What is your name?"
+  puts "What is your USERNAME?"
   name = gets.chomp
-  puts "What is your password?"
+  puts "What is your PASSWORD?"
   password = gets.chomp
   validate(name,password)
 end
 
 def validate(name,password)
-  if User.all.find_by(password:password) && User.find_by(name:name)
+  if User.all.find_by(password:password) && User.find_by(username:name)
     puts "Logging in... "
     sleep(1)
     user_instance = User.all.find_by(name: name)
@@ -44,8 +70,8 @@ def homepage(user_instance)
     quit
   else
     puts "Invalid input. Please try again"
-    homepage
   end
+  homepage(self)
 end
 
 # SETTINGS-------------------------------------------------------
@@ -119,8 +145,12 @@ end
 # QUIT--------------------------------------------------------
 
 def quit
-  puts "Goodbye"
-  return
+  puts "---------------------------------------------"
+  puts "-                                           -"
+  puts "-                  GOODBYE                  -"
+  puts "-                                           -"
+  puts "---------------------------------------------"
+  exit
 end
 
 # --------------------------------------------------------

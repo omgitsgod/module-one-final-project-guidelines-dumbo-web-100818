@@ -6,4 +6,4 @@ puts "-                                           -"
 puts "---------------------------------------------"
 
 user_instance = User.create(name: "Ryan")
-user_instance.create_a_note
+# user_instance.create_a_note
