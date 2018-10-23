@@ -13,7 +13,7 @@ def user_type
     realname = gets.chomp.to_s
     puts "Type new password"
     temppass = gets.chomp.to_s
-    binding.pry
+
     User.create(username: newusername, name:realname, password:temppass)
 
     puts "New user #{newusername} created!"
@@ -39,7 +39,7 @@ def validate(name,password)
   if User.all.find_by(password:password) && User.find_by(username:name)
     puts "Logging in... "
     sleep(1)
-    user_instance = User.all.find_by(name: name)
+    user_instance = User.all.find_by(username: name)
     homepage(user_instance)
   else
     puts "Please try again."
