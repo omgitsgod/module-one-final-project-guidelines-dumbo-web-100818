@@ -13,7 +13,8 @@ def validate(name,password)
   if User.all.find_by(password:password) && User.find_by(name:name)
     puts "Logging in... "
     sleep(1)
-    User.all.find_by(name: name)
+    user_instance = User.all.find_by(name: name)
+    homepage(user_instance)
   else
     puts "Please try again."
     puts "------------------------------------------"
@@ -22,7 +23,7 @@ def validate(name,password)
 end
 
 # HOMEPAGE-----------------------------------------------------
-def homepage
+def homepage(user_instance)
   puts "Welcome to JOURNALS!"
   puts "Please choose an options. (1 - 5)"
   puts "1 CREATE NOTES"
@@ -32,7 +33,7 @@ def homepage
   puts "5 QUIT"
   choose = gets.chomp.to_i
   if choose == 1
-    create_a_note
+    user_instance.create_a_note
   elsif choose == 2
     puts "not here"
   elsif choose == 3
