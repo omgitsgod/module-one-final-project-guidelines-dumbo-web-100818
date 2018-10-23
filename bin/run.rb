@@ -3,23 +3,24 @@ require_relative '../config/environment'
 # NEW USER-----------------------------------------
 
 def user_type
-  puts "1. New User"
-  puts "2. Existing User"
-  user = gets.chomp.to_i
+  user = $prompt.select("Are you a new user?", ["New User", "Existing User"])
+  # puts "1. New User"
+  # puts "2. Existing User"
+  # user = gets.chomp.to_i
   puts `clear`
-  if user == 1
-    puts "Type new username"
-    newusername = gets.chomp.to_s
-    puts "Type in REAL name"
-    realname = gets.chomp.to_s
-    puts "Type new password"
-    temppass = gets.chomp.to_s
+  if user == "New User"
+    # puts "Type new username"
+    newusername = $prompt.ask("Type new username")
+    # puts "Type in REAL name:"
+    realname = $prompt.ask("Type in REAL name:")
+    # puts "Type new password"
+    temppass = $prompt.mask("Type new password: ")
 
     User.create(username: newusername, name:realname, password:temppass)
 
     puts "New user #{newusername} created!"
     sleep(1)
-  elsif user == 2
+  elsif user == "Existing User"
     puts ""
     puts ""
   else
@@ -30,10 +31,10 @@ end
 # LOGIN-------------------------------------------------
 def login
   login_banner
-  puts "What is your USERNAME?"
-  name = gets.chomp
-  puts "What is your PASSWORD?"
-  password = gets.chomp
+  # puts "What is your USERNAME?"
+  name = $prompt.ask("Enter your USERNAME:")
+  # puts "What is your PASSWORD?"
+  password = $prompt.mask("Enter your PASSWORD: ")
   validate(name,password)
 end
 
@@ -55,23 +56,24 @@ def homepage(user_instance)
   puts `clear`
   homepage_banner
   # `say -v Alex "Welcome to JOURNALS #{user_instance.name}!"`
-  `say -v Samantha "What you want #{user_instance.name}!!"`
-  puts "Please choose an options. (1 - 5)"
-  puts "1 CREATE NOTES"
-  puts "2 VIEW/EDIT NOTES"
-  puts "3 SETTINGS"
-  puts "4 LOGOUT"
-  puts "5 QUIT"
-  choose = gets.chomp.to_i
-  if choose == 1
-    user_instance.create_a_note
-  elsif choose == 2
+  `say -v Samantha "Choose if you know whats good for you #{user_instance.name}!!"`
+  choose = $prompt.select("Choose an option (1-5)", ["CREATE NOTES", "VIEW/EDIT NOTES", "SETTINGS", "LOGOUT", "QUIT"])
+  # puts "Please choose an options. (1 - 5)"
+  # puts "1 CREATE NOTES"
+  # puts "2 VIEW/EDIT NOTES"
+  # puts "3 SETTINGS"
+  # puts "4 LOGOUT"
+  # puts "5 QUIT"
+  # choose = gets.chomp.to_i
+  if choose == "CREATE NOTES"
+    user_instance.create_a_note(user_instance)
+  elsif choose == "VIEW/EDIT NOTES"
     puts "not here"
-  elsif choose == 3
+  elsif choose == "SETTINGS"
     settings(user_instance)
-  elsif choose == 4
+  elsif choose == "LOGOUT"
     logout
-  elsif choose == 5
+  elsif choose == "QUIT"
     quit
   else
     puts "Invalid input. Please try again"
@@ -84,19 +86,20 @@ end
 def settings(user_instance)
   puts `clear`
   settings_banner
-  puts "Please choose an options. (1 - 3)"
-  puts "1 CHANGE USERNAME"
-  puts "2 CHANGE PASSWORD"
-  puts "3 CLEAR NOTES"
-  puts "4 RETURN TO HOMEPAGE"
-  choose = gets.chomp.to_i
-  if choose == 1
+  choose = $prompt.select("Choose an option (1 - 4)", ["CHANGE USERNAME", "CHANGE PASSWORD", "CLEAR NOTES", "RETURN TO HOMEPAGE"])
+  # puts "Please choose an options. (1 - 3)"
+  # puts "1 CHANGE USERNAME"
+  # puts "2 CHANGE PASSWORD"
+  # puts "3 CLEAR NOTES"
+  # puts "4 RETURN TO HOMEPAGE"
+  # choose = gets.chomp.to_i
+  if choose == "CHANGE USERNAME"
     change_name(user_instance)
-  elsif choose == 2
+  elsif choose == "CHANGE PASSWORD"
     change_pass(user_instance)
-  elsif choose == 3
+  elsif choose == "CLEAR NOTES"
     delete_notes
-  elsif choose == 4
+  elsif choose == "RETURN TO HOMEPAGE"
     homepage(user_instance)
   end
 end

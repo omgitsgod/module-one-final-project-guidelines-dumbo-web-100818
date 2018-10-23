@@ -4,7 +4,7 @@ has_many :notes
 belongs_to :groups
 has_many :subjects, through: :notes
 
-def create_a_note
+def create_a_note(user_instance)
 puts `clear`
 create_banner
 puts "Choose from subjects"
@@ -39,6 +39,17 @@ subject = subject
   end
     new_note = Note.create(user: self, subject: subject, content: content, rating: rating, bookmark: bookmark )
     self.notes << new_note
+    puts "Your note has been saved"
+    x = $prompt.select("Where to?", ["VIEW NOTE", "RETURN TO HOMEPAGE"])
+    if x == "VIEW NOTE"
+      puts new_note.subject.name
+      puts new_note.rating
+      puts new_note.content
+      $prompt.keypress("Press any key to return to main menu.")
+      homepage(user_instance)
+    elsif x == "RETURN TO HOMEPAGE"
+      homepage(user_instance)
+    end
 else
   puts "Please try again"
     self.create_a_note

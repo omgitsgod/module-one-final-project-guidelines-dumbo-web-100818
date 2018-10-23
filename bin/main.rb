@@ -3,6 +3,7 @@ require_relative 'run.rb'
 require_relative 'banner.rb'
 # require_relative 'create_note.rb'
 
+puts `clear`
 puts "---------------------------------------------"
 puts "-                                           -"
 puts "-         Welcome to Class Journals         -"
