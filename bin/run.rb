@@ -6,6 +6,7 @@ def user_type
   puts "1. New User"
   puts "2. Existing User"
   user = gets.chomp.to_i
+  puts `clear`
   if user == 1
     puts "Type new username"
     newusername = gets.chomp.to_s
@@ -28,6 +29,7 @@ end
 
 # LOGIN-------------------------------------------------
 def login
+  login_banner
   puts "What is your USERNAME?"
   name = gets.chomp
   puts "What is your PASSWORD?"
@@ -50,7 +52,10 @@ end
 
 # HOMEPAGE-----------------------------------------------------
 def homepage(user_instance)
-  puts "Welcome to JOURNALS!"
+  puts `clear`
+  homepage_banner
+  # `say -v Alex "Welcome to JOURNALS #{user_instance.name}!"`
+  `say -v Samantha "What you want #{user_instance.name}!!"`
   puts "Please choose an options. (1 - 5)"
   puts "1 CREATE NOTES"
   puts "2 VIEW/EDIT NOTES"
@@ -63,7 +68,7 @@ def homepage(user_instance)
   elsif choose == 2
     puts "not here"
   elsif choose == 3
-    settings
+    settings(user_instance)
   elsif choose == 4
     logout
   elsif choose == 5
@@ -71,12 +76,14 @@ def homepage(user_instance)
   else
     puts "Invalid input. Please try again"
   end
-  homepage(self)
+  homepage(user_instance)
 end
 
 # SETTINGS-------------------------------------------------------
 
-def settings
+def settings(user_instance)
+  puts `clear`
+  settings_banner
   puts "Please choose an options. (1 - 3)"
   puts "1 CHANGE USERNAME"
   puts "2 CHANGE PASSWORD"
@@ -90,24 +97,28 @@ def settings
   elsif choose == 3
     delete_notes
   elsif choose == 4
-    homepage
+    homepage(user_instance)
   end
 end
 
 # SETTINGS-----------------------------------------------------------
 
 def change_name(user_instance)
+  puts `clear`
+  changename_banner
   puts "Please enter new username"
   name = gets.chomp.to_s
   user_instance.name = name
   puts "Your new username is #{name}"
   sleep(2)
-  homepage
+  homepage(user_instance)
 end
 
 # SETTINGS------------------------------------------------------------
 
 def change_pass(user_instance)
+  puts `clear`
+  changepass_banner
   puts "Please enter new password"
   pass = gets.chomp.to_s
   user_instance.password = pass
@@ -120,6 +131,9 @@ end
 # SETTINGS--------------------------------------------------------------
 
 def delete_notes(user_instance)
+  puts `clear`
+  delete_banner
+  `say -v Alex "WARNING! WARNING! WARNING!"`
   puts "Please confirm you want to DELETE ALL your notes. This cannot be reversed."
   puts "Yes / No"
   confirm = gets.chomp
@@ -137,23 +151,20 @@ end
 # LOGOUT------------------------------------------------------
 
 def logout
+  puts `clear`
   user_instance = nil
-  puts "You have been logged out."
+  logout_banner
   login
 end
 
 # QUIT--------------------------------------------------------
 
 def quit
-  puts "---------------------------------------------"
-  puts "-                                           -"
-  puts "-                  GOODBYE                  -"
-  puts "-                                           -"
-  puts "---------------------------------------------"
+  puts `clear`
+  goodbye_banner
   exit
 end
 
 # --------------------------------------------------------
 
 # binding.pry
-puts "hello"

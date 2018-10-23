@@ -5,10 +5,11 @@ belongs_to :groups
 has_many :subjects, through: :notes
 
 def create_a_note
+puts `clear`
+create_banner
 puts "Choose from subjects"
 
 Subject.create(name: "math")
-
 Subject.all.each_with_index do |subject, index|
   puts "#{index + 1}: #{subject.name}"
 end

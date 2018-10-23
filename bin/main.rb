@@ -1,5 +1,6 @@
 require_relative '../config/environment'
 require_relative 'run.rb'
+require_relative 'banner.rb'
 # require_relative 'create_note.rb'
 
 puts "---------------------------------------------"
@@ -11,13 +12,6 @@ puts "---------------------------------------------"
 
 def main
 user_type
-
-puts "---------------------------------------------"
-puts "-                                           -"
-puts "-                LOGIN PAGE                 -"
-puts "-                                           -"
-puts "---------------------------------------------"
-
 user_instance = login
 
 
