@@ -7,15 +7,13 @@ has_many :subjects, through: :notes
 def create_a_note
 puts "Choose from subjects"
 
-#self.subjects.each_with_index do |subject, index|
-#  puts "#{index + 1}: #{subject.name}"
-#end
-
-puts Subject.all
+self.subjects.each_with_index do |subject, index|
+  puts "#{index + 1}: #{subject.name}"
+end
 
 subjecttemp = gets.chomp
 
-y = subject.all.map do |x|
+y = Subject.all.map do |x|
   x.name
 end
 
