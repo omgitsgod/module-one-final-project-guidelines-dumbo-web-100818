@@ -1,3 +1,4 @@
+require 'pry'
 class User < ActiveRecord::Base
 has_many :notes
 belongs_to :groups
@@ -7,7 +8,9 @@ has_many :subjects, through: :notes
 def create_a_note
 puts "Choose from subjects"
 
-self.subjects.each_with_index do |subject, index|
+Subject.create(name: "math")
+
+Subject.all.each_with_index do |subject, index|
   puts "#{index + 1}: #{subject.name}"
 end
 
@@ -18,21 +21,22 @@ y = Subject.all.map do |x|
 end
 
 if y.include?(subjecttemp)
-subject = self.subjects.find_by(name: subjecttemp)
-subject = subjecttemp
+subject = Subject.all.find_by(name: subjecttemp)
+subject = subject
   puts "Rating?"
-  rating = gets.chomp
+  rating = gets.chomp.to_i
   puts "Bookmark?"
-  puts "1. Yes"
-  puts "2. No"
-  bookmarktemp = gets.chomp
-    if bookmarktemp == 1
+  puts "True/False"
+  bookmark = gets.chomp
+
+  case bookmark
+    when "true", "True", "yes", "Yes"
       bookmark = true
-    elsif bookmarktemp == 2
+    when "false", "False", "no", "No"
       bookmark = false
-    end
+  end
     new_note = Note.create(user: self, subject: subject, rating: rating, bookmark: bookmark )
-    new_note << self.notes
+    self.notes << new_note
 else
   puts "Please try again"
     self.create_a_note
