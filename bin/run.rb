@@ -68,7 +68,7 @@ def homepage(user_instance)
   if choose == "CREATE NOTES"
     user_instance.create_a_note(user_instance)
   elsif choose == "VIEW/EDIT NOTES"
-    puts "not here"
+    puts user_instance.view_notes(user_instance)
   elsif choose == "SETTINGS"
     settings(user_instance)
   elsif choose == "LOGOUT"
@@ -86,7 +86,7 @@ end
 def settings(user_instance)
   puts `clear`
   settings_banner
-  choose = $prompt.select("Choose an option (1 - 4)", ["CHANGE USERNAME", "CHANGE PASSWORD", "CLEAR NOTES", "RETURN TO HOMEPAGE"])
+  choose = $prompt.select("Choose an option (1 - 4)", ["ADD SUBJECT", "CHANGE USERNAME", "CHANGE PASSWORD", "CLEAR NOTES", "RETURN TO HOMEPAGE"])
   # puts "Please choose an options. (1 - 3)"
   # puts "1 CHANGE USERNAME"
   # puts "2 CHANGE PASSWORD"
@@ -99,10 +99,29 @@ def settings(user_instance)
     change_pass(user_instance)
   elsif choose == "CLEAR NOTES"
     delete_notes
+  elsif choose == "ADD SUBJECT"
+    add_subject(user_instance)
   elsif choose == "RETURN TO HOMEPAGE"
     homepage(user_instance)
   end
 end
+
+# SETTINGS-----------------------------------------------------------
+
+  def add_subject(user_instance)
+    puts `clear`
+    addsubject_banner
+    ans = $prompt.ask("What subject would you like to add?")
+    ans2 = $prompt.yes?("You entered: #{ans} :is this correct?")
+    if ans2 == true
+      new_subject = Subject.create(name: ans)
+      puts "Subject added: #{new_subject.name}"
+      $prompt.keypress("Press any key to return to main menu.")
+      homepage(user_instance)
+
+    end
+
+  end
 
 # SETTINGS-----------------------------------------------------------
 
