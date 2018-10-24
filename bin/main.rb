@@ -12,6 +12,7 @@ puts "---------------------------------------------"
 # binding.pry
 
 def main
+`afplay sounds/Goat-sound-effect.mp3`
 user_type
 user_instance = login
 

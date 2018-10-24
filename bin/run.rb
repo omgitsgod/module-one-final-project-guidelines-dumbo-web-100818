@@ -19,7 +19,10 @@ def user_type
     User.create(username: newusername, name:realname, password:temppass)
 
     puts "New user #{newusername} created!"
+    spinner = TTY::Spinner.new("Loading :spinner :spinner :spinner ", format: :spin_2)
+    spinner.auto_spin
     sleep(1)
+    spinner.stop('Done!')
   elsif user == "Existing User"
     puts ""
     puts ""
@@ -104,7 +107,7 @@ def settings(user_instance)
   elsif choose == "CHANGE PASSWORD"
     change_pass(user_instance)
   elsif choose == "CLEAR NOTES"
-    delete_notes
+    delete_notes(user_instance)
   elsif choose == "ADD SUBJECT"
     add_subject(user_instance)
   elsif choose == "RETURN TO HOMEPAGE"
@@ -145,7 +148,10 @@ def change_name(user_instance)
   name = gets.chomp.to_s
   user_instance.name = name
   puts "Your new username is #{name}"
+  spinner = TTY::Spinner.new("Returning home :spinner :spinner :spinner ", format: :spin_2)
+  spinner.auto_spin
   sleep(2)
+  spinner.stop('Done!')
   homepage(user_instance)
 end
 
@@ -158,7 +164,11 @@ def change_pass(user_instance)
   pass = gets.chomp.to_s
   user_instance.password = pass
   puts "Your new password is #{'*' * pass.length}"
-  puts "Returning to homepage."
+  # puts "Returning to homepage."
+  spinner = TTY::Spinner.new("Returning to homepage :spinner :spinner :spinner ", format: :spin_2)
+  spinner.auto_spin
+  sleep(2)
+  spinner.stop('Done!')
   sleep(2)
   homepage(user_instance)
 end
@@ -175,10 +185,14 @@ def delete_notes(user_instance)
   if confirm == "Yes"
     user_instance.notes.delete_all
     puts "All your notes have been deleted."
-    puts "Returning to homepage."
+    # puts "Returning to homepage."
+    spinner = TTY::Spinner.new("Returning to homepage :spinner :spinner :spinner ", format: :spin_2)
+    spinner.auto_spin
+    sleep(2)
+    spinner.stop('Done!')
     sleep(2)
   else
-    delete_notes(user_instance)
+    homepage(user_instance)
   end
   homepage
 end
