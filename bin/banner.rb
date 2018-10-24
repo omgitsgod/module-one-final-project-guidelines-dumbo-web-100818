@@ -77,3 +77,11 @@ def addsubject_banner
   puts "-                                           -"
   puts "---------------------------------------------"
 end
+
+def viewnotes_banner
+  puts "---------------------------------------------"
+  puts "-                                           -"
+  puts "-               VIEW NOTES                  -"
+  puts "-                                           -"
+  puts "---------------------------------------------"
+end

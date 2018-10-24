@@ -34,6 +34,7 @@ end
 # LOGIN-------------------------------------------------
 def login
   puts `clear`
+  `afplay sounds/Goat-noise.mp3`
   login_banner
   # puts "What is your USERNAME?"
   name = $prompt.ask("Enter your USERNAME:")
@@ -62,10 +63,11 @@ end
 # HOMEPAGE-----------------------------------------------------
 def homepage(user_instance)
   puts `clear`
+  `afplay sounds/Goat-noise.mp3`
   homepage_banner
   # `say -v Alex "Welcome to JOURNALS #{user_instance.name}!"`
-  `say -v Samantha "Choose if you know whats good for you #{user_instance.name}!!"`
-  choose = $prompt.select("Choose an option (1-5)", ["CREATE NOTES", "VIEW/EDIT NOTES", "SETTINGS", "LOGOUT", "QUIT"])
+  `say -v Samantha "Hows your goat? #{user_instance.name}!!"`
+  choose = $prompt.select("Choose an option", ["CREATE NOTES", "VIEW/EDIT NOTES", "SETTINGS", "LOGOUT", "QUIT"])
   # puts "Please choose an options. (1 - 5)"
   # puts "1 CREATE NOTES"
   # puts "2 VIEW/EDIT NOTES"
@@ -94,8 +96,9 @@ end
 
 def settings(user_instance)
   puts `clear`
+  `afplay sounds/Goat-noise.mp3`
   settings_banner
-  choose = $prompt.select("Choose an option (1 - 4)", ["ADD SUBJECT", "CHANGE USERNAME", "CHANGE PASSWORD", "CLEAR NOTES", "RETURN TO HOMEPAGE"])
+  choose = $prompt.select("Choose an option", ["ADD SUBJECT", "CHANGE USERNAME", "CHANGE PASSWORD", "CLEAR NOTES", "RETURN TO HOMEPAGE"])
   # puts "Please choose an options. (1 - 3)"
   # puts "1 CHANGE USERNAME"
   # puts "2 CHANGE PASSWORD"
@@ -119,6 +122,7 @@ end
 
   def add_subject(user_instance)
     puts `clear`
+    `afplay sounds/Goat-noise.mp3`
     addsubject_banner
     puts "**Enter [cancel] at any time to cancel**"
     ans = $prompt.ask("What subject would you like to add?")
@@ -143,6 +147,7 @@ end
 
 def change_name(user_instance)
   puts `clear`
+  `afplay sounds/Goat-noise.mp3`
   changename_banner
   puts "Please enter new username"
   name = gets.chomp.to_s
@@ -159,6 +164,7 @@ end
 
 def change_pass(user_instance)
   puts `clear`
+  `afplay sounds/Goat-noise.mp3`
   changepass_banner
   puts "Please enter new password"
   pass = gets.chomp.to_s
@@ -177,21 +183,29 @@ end
 
 def delete_notes(user_instance)
   puts `clear`
+  `afplay sounds/Goat-noise.mp3`
   delete_banner
   `say -v Alex "WARNING! WARNING! WARNING!"`
-  puts "Please confirm you want to DELETE ALL your notes. This cannot be reversed."
-  puts "Yes / No"
-  confirm = gets.chomp
-  if confirm == "Yes"
-    user_instance.notes.delete_all
-    puts "All your notes have been deleted."
-    # puts "Returning to homepage."
-    spinner = TTY::Spinner.new("Returning to homepage :spinner :spinner :spinner ", format: :spin_2)
-    spinner.auto_spin
-    sleep(2)
-    spinner.stop('Done!')
-    sleep(2)
-  else
+  # puts "Please confirm you want to DELETE ALL your notes. This cannot be reversed."
+  # puts "Yes / No"
+
+  answer = $prompt.yes?("Please confirm you want to DELETE ALL your notes. This cannot be reversed.")
+  if answer == true
+    confirm = $prompt.ask("Are you sure? Enter [DELETE] if you are sure:")
+    if confirm == "DELETE"
+  # if confirm == "Yes"
+      user_instance.notes.delete_all
+      puts "All your notes have been deleted."
+      # puts "Returning to homepage."
+      spinner = TTY::Spinner.new("Returning to homepage :spinner :spinner :spinner ", format: :spin_2)
+      spinner.auto_spin
+      sleep(2)
+      spinner.stop('Done!')
+      sleep(2)
+    else
+      homepage(user_instance)
+    end
+  elsif answer == false
     homepage(user_instance)
   end
   homepage
@@ -201,6 +215,7 @@ end
 
 def logout
   puts `clear`
+  `afplay sounds/Goat-noise.mp3`
   user_instance = nil
   logout_banner
   login
@@ -210,6 +225,7 @@ end
 
 def quit
   puts `clear`
+  `afplay sounds/Goat-sound-effect.mp3`
   goodbye_banner
   exit
 end
