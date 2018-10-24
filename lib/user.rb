@@ -173,7 +173,7 @@ puts table.render(:ascii)
     end
 
     table3 = TTY::Table.new ["Subject", "Rating", "Message", "Bookmark"], hmm2
-    puts table3.render(:ascii)
+    puts table3.render(:unicode)
     subchoice = $prompt.select("Where to? : ", ["Edit", "Main Menu"])
     ###########################
     if subchoice == "Edit"
@@ -201,7 +201,7 @@ puts table.render(:ascii)
     end
 
     table4 = TTY::Table.new ["Subject", "Rating", "Message", "Bookmark"], hmm3
-    puts table4.render(:ascii)
+    puts table4.render(:unicode)
     subchoice = $prompt.select("Where to? : ", ["Edit", "Main Menu"])
     ###########################
     if subchoice == "Edit"

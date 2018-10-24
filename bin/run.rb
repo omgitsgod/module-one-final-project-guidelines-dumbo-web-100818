@@ -11,6 +11,7 @@ def user_type
   if user == "New User"
     # puts "Type new username"
     newusername = $prompt.ask("Type new username")
+    if !User.exists?(username: newusername)
     # puts "Type in REAL name:"
     realname = $prompt.ask("Type in REAL name:")
     # puts "Type new password"
