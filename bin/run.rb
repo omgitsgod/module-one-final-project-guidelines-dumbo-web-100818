@@ -41,8 +41,12 @@ end
 
 def validate(name,password)
   if User.all.find_by(password:password) && User.find_by(username:name)
-    puts "Logging in... "
-    sleep(1)
+    spinner = TTY::Spinner.new("Loading :spinner :spinner :spinner ", format: :spin_2)
+    spinner.auto_spin
+    sleep(2)
+    spinner.stop('Done!')
+    # puts "Logging in... "
+    # sleep(1)
     user_instance = User.all.find_by(username: name)
     homepage(user_instance)
   else
@@ -82,12 +86,13 @@ def homepage(user_instance)
   homepage(user_instance)
 end
 
+
 # SETTINGS-------------------------------------------------------
 
 def settings(user_instance)
   puts `clear`
   settings_banner
-  choose = $prompt.select("Choose an option (1 - 4)", ["CHANGE USERNAME", "CHANGE PASSWORD", "CLEAR NOTES", "RETURN TO HOMEPAGE"])
+  choose = $prompt.select("Choose an option (1 - 4)", ["ADD SUBJECT", "CHANGE USERNAME", "CHANGE PASSWORD", "CLEAR NOTES", "RETURN TO HOMEPAGE"])
   # puts "Please choose an options. (1 - 3)"
   # puts "1 CHANGE USERNAME"
   # puts "2 CHANGE PASSWORD"
@@ -100,10 +105,36 @@ def settings(user_instance)
     change_pass(user_instance)
   elsif choose == "CLEAR NOTES"
     delete_notes
+  elsif choose == "ADD SUBJECT"
+    add_subject(user_instance)
   elsif choose == "RETURN TO HOMEPAGE"
     homepage(user_instance)
   end
 end
+
+# SETTINGS-----------------------------------------------------------
+
+  def add_subject(user_instance)
+    puts `clear`
+    addsubject_banner
+    puts "**Enter [cancel] at any time to cancel**"
+    ans = $prompt.ask("What subject would you like to add?")
+    if ans == "cancel"
+      homepage(user_instance)
+    end
+    puts `clear`
+    ans2 = $prompt.yes?("You entered '#{ans}' is this correct?")
+    if ans2 == false
+      add_subject(user_instance)
+    elsif ans2 == true
+      new_subject = Subject.create(name: ans)
+      puts "Subject added: #{new_subject.name}"
+      $prompt.keypress("Press any key to return to main menu.")
+      homepage(user_instance)
+
+    end
+
+  end
 
 # SETTINGS-----------------------------------------------------------
 
