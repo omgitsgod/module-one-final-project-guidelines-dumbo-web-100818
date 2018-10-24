@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
       self.notes << new_note
 
       table = TTY::Table.new ["Subject", "Rating", "Message"], [[new_note.subject.name, new_note.rating, new_note.content]]
-      puts table.render(:ascii)
+      puts table.render(:unicode)
       $prompt.keypress("Press any key to return to main menu.")
       homepage(user_instance)
 
