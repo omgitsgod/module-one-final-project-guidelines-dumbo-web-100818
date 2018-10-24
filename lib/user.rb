@@ -56,4 +56,38 @@ else
   end
 end
 
+#-View Notes-----------------------
+
+def view_notes(user_instance)
+user_instance.notes.each do |note|
+  puts "----------------------"
+  puts "                      "
+  puts note.content
+  puts "                      "
+  puts "----------------------"
+end
+  puts"(1). View by Subject"
+  puts"(2). View by Rating"
+  puts"(3). View by Bookmark"
+  option = gets.chomp.to_i
+  if option == 1
+    puts user_instance.subject
+  elsif
+    option == 2
+    user_instance.notes.where(:rating => (1..5)).each_with_index do |note,index|
+      puts"      Ranked notes  #{index + 1}      "
+      puts note.content
+      puts"--------------------------------------"
+    end
+  elsif
+    option == 3
+       user_instance.notes.where(:bookmark => true).each_with_index do |note,index|
+      puts"      Bookmarked notes  #{index + 1}      "
+      puts note.content
+      puts"-------------------------------------------"
+      # user_instance.notes.where(:bookmark => true)
+end
+   end
+ end
+
 end

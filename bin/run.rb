@@ -30,6 +30,7 @@ end
 
 # LOGIN-------------------------------------------------
 def login
+  puts `clear`
   login_banner
   # puts "What is your USERNAME?"
   name = $prompt.ask("Enter your USERNAME:")
@@ -68,7 +69,7 @@ def homepage(user_instance)
   if choose == "CREATE NOTES"
     user_instance.create_a_note(user_instance)
   elsif choose == "VIEW/EDIT NOTES"
-    puts "not here"
+    user_instance.view_notes(user_instance)
   elsif choose == "SETTINGS"
     settings(user_instance)
   elsif choose == "LOGOUT"
