@@ -1,7 +1,7 @@
 require 'pry'
 class User < ActiveRecord::Base
   has_many :notes
-  belongs_to :groups
+  belongs_to :group
   has_many :subjects, through: :notes
 
   def create_a_note(user_instance)

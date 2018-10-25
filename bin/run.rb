@@ -21,8 +21,19 @@ def user_type
     if !User.exists?(username: newusername) && newusername.length > 1
       realname = $prompt.ask("Type in REAL name:")
       temppass = $prompt.mask("Type new password: ")
+    # find group ++++++++++++++++++++++++++++++++++++++++++++++
+      arr = []
+      Group.all.each do |group|
+        arr << ["#{group.id} #{group.name}"]
+      end
 
-      user_instance = User.create(username: newusername, name:realname, password:temppass)
+      grouptemp = $prompt.select("Choose your group: ", arr)
+      idnum = grouptemp.split[0].to_i
+
+      lalala = Group.all.find(idnum)
+
+    # ++++++++++++++++++++++++++++++++++++++++++++++
+      user_instance = User.create(username: newusername, name:realname, password:temppass, group: lalala)
 
       puts "New user #{newusername} created!"
       spinner = TTY::Spinner.new("Loading :spinner :spinner :spinner ", format: :spin_2)
@@ -312,7 +323,7 @@ end
 
 def quit
   puts `clear`
-  `afplay sounds/Goat-sound-effect.mp3`
+  # `afplay sounds/Goat-sound-effect.mp3`
   goodbye_banner
   exit
 end
