@@ -45,19 +45,11 @@ class User < ActiveRecord::Base
 #-View Notes-----------------------
 def view_notes(user_instance)
   puts `clear`
-  `afplay sounds/Button-beep-tone.mp3`
+  #`afplay sounds/Goat-sound-effect.mp3`
   viewnotes_banner
   yar = []
 user_instance.notes.each do |note|
-<<<<<<< HEAD
-#  puts "----------------------"
-#  puts note.subject.name
-#  puts note.rating
-#  puts note.content
-#  puts "----------------------"
-=======
 
->>>>>>> 20ad2938a4f678953bc190728a303d9327af2b14
 yar << [note.subject.name, note.rating, note.content, note.bookmark]
 end
 table = TTY::Table.new ["Subject", "Rating", "Message", "Bookmark"], yar
@@ -194,7 +186,7 @@ puts table.render(:ascii)
       homepage(user_instance)
     end
     ##########
-  
+
 
   end
 
