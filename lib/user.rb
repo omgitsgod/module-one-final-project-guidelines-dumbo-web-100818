@@ -45,7 +45,7 @@ class User < ActiveRecord::Base
 #-View Notes-----------------------
 def view_notes(user_instance)
   puts `clear`
-  `afplay sounds/Goat-sound-effect.mp3`
+  `afplay sounds/Button-beep-tone.mp3`
   viewnotes_banner
   yar = []
 user_instance.notes.each do |note|

@@ -24,6 +24,7 @@ puts' \______/  \______/ |__/  |__/   |__/          \______/  \______/  \______/
 prompt =
 
 sleep(3)
+<<<<<<< HEAD
 y = $prompt.keypress("PRESS ANY KEY TO BEGIN")
   if y == "\u007F"
     x = $prompt.keypress("No, not that key... Try something else....")
@@ -35,4 +36,7 @@ y = $prompt.keypress("PRESS ANY KEY TO BEGIN")
         end
       end
     end
+=======
+
+>>>>>>> 2372845f9c0f8e26af65ecfc839bd5edd67c1290
 end
