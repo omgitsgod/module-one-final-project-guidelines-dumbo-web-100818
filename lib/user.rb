@@ -153,11 +153,11 @@ puts table.render(:ascii)
     else
       arr = []
       user_instance.notes.each do |note|
-        arr << ["#{note.id} #{note.created_at}  #{note.subject.name}  #{note.rating}  #{note.content}"]
+        arr << ["ID: #{note.id} Created: #{note.created_at} Subject: #{note.subject.name} Rating: #{note.rating} Message: #{note.content}"]
       end
 
     notetemp = $prompt.select("Choose your note: ", arr)
-    idnum = notetemp.split[0].to_i
+    idnum = notetemp.split[1].to_i
 
     lala = user_instance.notes.find(idnum)
 

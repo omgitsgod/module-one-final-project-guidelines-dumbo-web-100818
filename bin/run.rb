@@ -50,11 +50,11 @@ def user_type
     # find group ++++++++++++++++++++++++++++++++++++++++++++++
       arr = []
       Group.all.each do |group|
-        arr << ["#{group.id} #{group.name}"]
+        arr << ["ID: #{group.id} Name: #{group.name}"]
       end
 
       grouptemp = $prompt.select("Choose your group: ", arr)
-      idnum = grouptemp.split[0].to_i
+      idnum = grouptemp.split[1].to_i
 
       lalala = Group.all.find(idnum)
 
@@ -88,9 +88,6 @@ def login
   elsif name == "partyhard"
     t1 = Thread.new do
       dance
-      sleep(3)
-      puts 'break'
-      binding.pry
     end
     `afplay sounds/130503_tokyo_Drift__REMAKE_BABY.mp3`
     t1.join
@@ -349,15 +346,9 @@ end
 
 def delete_notes(user_instance)
   puts `clear`
-
-`afplay sounds/Goat-noise.mp3`
-
   delete_banner
-  `say -v Alex "WARNING! WARNING! WARNING!"`
-  # puts "Please confirm you want to DELETE ALL your notes. This cannot be reversed."
-  # puts "Yes / No"
-
-  answer = $prompt.yes?("Please confirm you want to DELETE ALL your notes. This cannot be reversed.")
+  answer = $prompt.yes?("Please confirm you want to DELETE ALL your notes. THIS CANNOT BE REVERSED.")
+  `say -v Alex "WARNING!"`
   if answer == true
     confirm = $prompt.ask("Are you sure? Enter [DELETE] if you are sure:")
     if confirm == "DELETE"
@@ -397,11 +388,123 @@ end
 
 def quit
   puts `clear`
-  # `afplay sounds/Goat-sound-effect.mp3`
   goodbye_banner
+  `afplay sounds/Goat-sound-effect.mp3`
   exit
 end
 
-# --------------------------------------------------------
+# MOD MODE--------------------------------------------------------
 
-# binding.pry
+def modmode
+  puts `clear`
+  mod_banner
+  arr = []
+       Group.all.each do |group|
+         arr << ["ID: #{group.id} Name: #{group.name}"]
+       end
+
+       grouptemp = $prompt.select("Choose your group: ", arr)
+       idnum = grouptemp.split[1].to_i
+
+       lalala = Group.all.find(idnum)
+
+       puts `clear`
+       mod_banner
+       choose = $prompt.select("Choose an option", ["DATA", "VIEW/CHANGE GROUP", "RETURN TO HOMEPAGE"])
+       if choose == "DATA"
+         choose2 = $prompt.select("Choose an option", ["USER NOTES",{name: "AVERAGE RATING FOR GROUP", disabled: "    Working on it!"}, {name: "GRAPH OF AVERAGE RATING", disabled: "    Working on it!"}, "MAIN MENU"])
+         if choose2 == "MAIN MENU"
+           modmode
+         elsif choose2 == "AVERAGE RATING FOR GROUP"
+         elsif choose2 == "GRAPH OF AVERAGE RATING"
+         elsif choose2 == "USER NOTES"
+           if lalala.notes.length > 0
+             puts `clear`
+             #`afplay sounds/Goat-sound-effect.mp3`
+             viewnotes_banner
+             yar = []
+           user_instance.notes.each do |note|
+
+           yar << [note.subject.name, note.rating, note.content, note.bookmark]
+           end
+           table = TTY::Table.new ["Subject", "Rating", "Message", "Bookmark"], yar
+
+           puts table.render(:ascii)
+           else
+             puts "No SHOT"
+             $prompt.keypress("Press any key to continue")
+             modmode
+           end
+         end
+       elsif choose == "VIEW/CHANGE GROUP"
+         choose2 = $prompt.select("Choose an option", ["VIEW USERS", "CREATE NEW USER", "MAIN MENU"])
+         if choose2 == "MAIN MENU"
+           modmode
+         elsif choose2 == "VIEW USERS"
+            if lalala.users.length > 0
+           arr = []
+                lalala.users.each do |user|
+                  arr << ["ID: #{user.id} Name: #{user.name}, Notes: #{user.notes.length}"]
+                end
+
+                usertemp = $prompt.select("Choose your user: ", arr)
+                idnum = usertemp.split[1].to_i
+
+                lalala = User.all.find(idnum)
+
+                choose3 = $prompt.select("Choose an option", ["DELETE ALL USERS", "DELETE USER", "MAIN MENU"])
+
+                if choose3 == "DELETE ALL USERS"
+                 choose4 = $prompt.yes?("ARE YOU SURE?")
+                 if choose4
+                   choose5 = $prompt.yes?("REALLY REALLY REALLY SURE?")
+                   if choose5
+                   lalala.users.delete_all
+                   modmode
+                 end
+                else
+                  modmode
+               end
+             elsif choose3 == "DELETE USER"
+               choose4 = $prompt.yes?("ARE YOU SURE?")
+               if choose4
+                lalala.destroy
+                User.all.reload
+                puts "USER DELETED"
+                $prompt.keypress("PRESS ANY KEY TO CONTINUE")
+                modmode
+              else
+                modmode
+              end
+               elsif choose3 == "MAIN MENU"
+                 modmode
+               end
+             else
+               puts "Your group is mighty lonely"
+               $prompt.keypress("Press any key to continue")
+               modmode
+             end
+         elsif choose2 == "CREATE NEW USER"
+           newusername = $prompt.ask("Type new username")
+           if !User.exists?(username: newusername) && newusername.length > 1
+             realname = $prompt.ask("Type in REAL name:")
+             temppass = $prompt.mask("Type new password: ")
+
+             user_instance = User.create(username: newusername, name:realname, password:temppass, group: lalala)
+
+             puts "New user #{newusername} created!"
+             spinner = TTY::Spinner.new("Loading :spinner :spinner :spinner ", format: :spin_2)
+             spinner.auto_spin
+             sleep(1)
+             spinner.stop('Done!')
+             modmode
+           else
+             puts "Name already in use. Please choose another name."
+             modmode
+           end
+         end
+       elsif choose == "RETURN TO HOMEPAGE"
+         title
+       end
+
+end# binding.pry
