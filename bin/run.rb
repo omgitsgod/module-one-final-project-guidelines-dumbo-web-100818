@@ -8,7 +8,11 @@ end
 # ----------------------------------------------
 def user_type
   puts `clear`
+
+  # `afplay sounds/Button-beep-tone.mp3`
+
   # `afplay sounds/Goat-noise.mp3`
+
   login_banner
   user = $prompt.select("Are you a new user?", ["New User", "Existing User"])
   # puts "1. New User"
@@ -49,7 +53,6 @@ def user_type
     login
   end
 end
-
 # LOGIN-------------------------------------------------
 def login
 
@@ -97,7 +100,11 @@ end
 # HOMEPAGE-----------------------------------------------------
 def homepage(user_instance)
   puts `clear`
-  # `afplay sounds/Goat-noise.mp3`
+
+  `afplay sounds/Button-beep-tone.mp3`
+
+  #`afplay sounds/Goat-noise.mp3`
+
   homepage_banner
   # `say -v Alex "Welcome to JOURNALS #{user_instance.name}!"`
   `say -v Samantha "Hows your goat? #{user_instance.name}!!"`
@@ -130,9 +137,21 @@ end
 
 def settings(user_instance)
   puts `clear`
-  # `afplay sounds/Goat-noise.mp3`
+
+  `afplay sounds/Button-beep-tone.mp3`
+
+
   settings_banner
   choose = $prompt.select("Choose an option", ["ADD SUBJECT", "GROUP FUNCTIONS", "CHANGE USERNAME", "CHANGE PASSWORD", "CLEAR ALL NOTES", "RETURN TO HOMEPAGE"])
+#------------Cory add----- click events
+
+
+
+
+
+
+
+#----------end click events Cory--------------
   # puts "Please choose an options. (1 - 3)"
   # puts "1 CHANGE USERNAME"
   # puts "2 CHANGE PASSWORD"
@@ -156,7 +175,11 @@ end
 
 def add_group(user_instance)
   puts `clear`
+
+  `afplay sounds/Button-beep-tone.mp3`
+
   # `afplay sounds/Goat-noise.mp3`
+
   addsubject_banner
   puts "**Enter [cancel] at any time to cancel**"
   ans = $prompt.ask("What group would you like to add?")
@@ -179,7 +202,11 @@ end
 # SETTINGS-----------------------------------------------------------
 def group_functions(user_instance)
   puts `clear`
+
+  `afplay sounds/Button-beep-tone.mp3`
+
   # `afplay sounds/Goat-noise.mp3`
+
   settings_banner
   choose = $prompt.select("Choose an option", ["ADD GROUP", "CHANGE GROUP", "RETURN TO HOMEPAGE"])
   if choose == "ADD GROUP"
@@ -193,12 +220,19 @@ end
 
 def edit_group(user_instance)
   puts `clear`
-  # `afplay sounds/Goat-noise.mp3`
+
+  `afplay sounds/Button-beep-tone.mp3`
+
+
+
   addsubject_banner
   ans = $prompt.ask("What group would you like to change too?")
 
   puts `clear`
-  # `afplay sounds/Goat-noise.mp3`
+
+  `afplay sounds/Button-beep-tone.mp3`
+
+
   addsubject_banner
   user_instance.group = ans
   puts "Group changed to: #{user_instance.group}"
@@ -211,7 +245,9 @@ end
 
   def add_subject(user_instance)
     puts `clear`
-    # `afplay sounds/Goat-noise.mp3`
+
+    `afplay sounds/Button-beep-tone.mp3`
+
     addsubject_banner
     puts "**Enter [cancel] at any time to cancel**"
     ans = $prompt.ask("What subject would you like to add?")
@@ -245,7 +281,10 @@ end
 
 def change_name(user_instance)
   puts `clear`
-  # `afplay sounds/Goat-noise.mp3`
+
+  `afplay sounds/Button-beep-tone.mp3`
+
+
   changename_banner
   puts "Please enter new username"
   name = gets.chomp.to_s
@@ -262,7 +301,11 @@ end
 
 def change_pass(user_instance)
   puts `clear`
+
+  `afplay sounds/Button-beep-tone.mp3`
+
   # `afplay sounds/Goat-noise.mp3`
+
   changepass_banner
   puts "Please enter new password"
   pass = gets.chomp.to_s
@@ -281,7 +324,9 @@ end
 
 def delete_notes(user_instance)
   puts `clear`
-  # `afplay sounds/Goat-noise.mp3`
+
+`afplay sounds/Goat-noise.mp3`
+
   delete_banner
   `say -v Alex "WARNING! WARNING! WARNING!"`
   # puts "Please confirm you want to DELETE ALL your notes. This cannot be reversed."
@@ -313,7 +358,11 @@ end
 
 def logout
   puts `clear`
+
+  `afplay sounds/Button-beep-tone.mp3`
+
   # `afplay sounds/Goat-noise.mp3`
+
   user_instance = nil
   logout_banner
   login
