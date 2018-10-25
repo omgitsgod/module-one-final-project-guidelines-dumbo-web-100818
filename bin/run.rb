@@ -31,7 +31,7 @@ def user_type
     user_type
   end
 end
-
+end
 # LOGIN-------------------------------------------------
 def login
   puts `clear`

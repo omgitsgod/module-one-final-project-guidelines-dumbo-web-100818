@@ -112,7 +112,6 @@ def view_notes(user_instance)
   viewnotes_banner
   yar = []
 user_instance.notes.each do |note|
-  binding.pry
 #  puts "----------------------"
 #  puts note.subject.name
 #  puts note.rating
@@ -254,8 +253,7 @@ puts table.render(:ascii)
       homepage(user_instance)
     end
     ##########
-    binding.pry
-
+  
 
   end
 
