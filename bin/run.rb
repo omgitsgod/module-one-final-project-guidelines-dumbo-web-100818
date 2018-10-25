@@ -107,7 +107,7 @@ def homepage(user_instance)
 
   homepage_banner
   # `say -v Alex "Welcome to JOURNALS #{user_instance.name}!"`
-  `say -v Samantha "Hows your goat? #{user_instance.name}!!"`
+  `say -v Samantha "How is your goat? #{user_instance.name}!!"`
   choose = $prompt.select("Choose an option", ["CREATE NOTES", "VIEW/EDIT NOTES", "SETTINGS", "LOGOUT", "QUIT"])
   # puts "Please choose an options. (1 - 5)"
   # puts "1 CREATE NOTES"

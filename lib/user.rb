@@ -90,7 +90,7 @@ puts table.render(:ascii)
   ###########################
   if subchoice == "Edit"
     edit_note(user_instance)
-    elsif subchoice == "Main Menu"
+  elsif subchoice == "Main Menu"
     homepage(user_instance)
   end
   ########################
@@ -146,10 +146,15 @@ puts table.render(:ascii)
  end
 
   def edit_note(user_instance)
-    arr = []
-    user_instance.notes.each do |note|
-      arr << ["#{note.id} #{note.created_at}  #{note.subject.name}  #{note.rating}  #{note.content}"]
-    end
+    if user_instance.notes.length == 0
+      puts "No notes here"
+      $prompt.keypress("Press any key to continue")
+      homepage(user_instance)
+    else
+      arr = []
+      user_instance.notes.each do |note|
+        arr << ["#{note.id} #{note.created_at}  #{note.subject.name}  #{note.rating}  #{note.content}"]
+      end
 
     notetemp = $prompt.select("Choose your note: ", arr)
     idnum = notetemp.split[0].to_i
@@ -157,7 +162,7 @@ puts table.render(:ascii)
     lala = user_instance.notes.find(idnum)
 
     editchoice = $prompt.select("What now?: ", ["Edit Rating", "Edit Content", "Delete", "Main Menu"])
-
+  end
     ##########
     if editchoice == "Edit Rating"
       rat1 = $prompt.ask("Enter new rating (NUMBER): ")

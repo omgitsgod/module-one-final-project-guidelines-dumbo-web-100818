@@ -21,9 +21,15 @@ puts'| $$  \ $$| $$  | $$| $$  | $$   | $$         | $$  | $$| $$  | $$| $$  | $
 puts'|  $$$$$$/|  $$$$$$/| $$  | $$   | $$         |  $$$$$$/|  $$$$$$/|  $$$$$$/| $$      | $$  | $$|  $$$$$$$| $$ /$$$$$$$/'
 puts' \______/  \______/ |__/  |__/   |__/          \______/  \______/  \______/ |__/      |__/  |__/ \_______/|__/|_______/ '
 
+
+def dance
+  block = proc { | response | response.read_body do | chunk | puts chunk end }
+  RestClient::Request.execute(method: :get, url: 'parrot.live', block_response: block, headers: {'user-agent': '', 'content-type':'text'})
+end
 prompt =
 
-sleep(3)
+sleep(2)
+puts""
 y = $prompt.keypress("PRESS ANY KEY TO BEGIN")
   if y == "\u007F"
     x = $prompt.keypress("No, not that key... Try something else....")
@@ -36,5 +42,11 @@ y = $prompt.keypress("PRESS ANY KEY TO BEGIN")
       end
     elsif y == "b"
       `afplay sounds/Goat-sound-effect.mp3`
+    elsif y == "!"
+      t1 = Thread.new do
+        dance
+      end
+      `afplay sounds/130503_tokyo_Drift__REMAKE_BABY.mp3`
+      t1.join
     end
 end
