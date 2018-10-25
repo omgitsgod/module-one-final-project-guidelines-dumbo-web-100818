@@ -33,6 +33,7 @@ class User < ActiveRecord::Base
 
       table = TTY::Table.new ["Subject", "Rating", "Message"], [[new_note.subject.name, new_note.rating, new_note.content]]
       puts table.render(:unicode)
+      `afplay sounds/youGotmail.mp3`
       $prompt.keypress("Press any key to return to main menu.")
       homepage(user_instance)
 
@@ -45,7 +46,7 @@ class User < ActiveRecord::Base
 #-View Notes-----------------------
 def view_notes(user_instance)
   puts `clear`
-  #`afplay sounds/Goat-sound-effect.mp3`
+  `afplay sounds/beeping.mp3`
   viewnotes_banner
   yar = []
 user_instance.notes.each do |note|

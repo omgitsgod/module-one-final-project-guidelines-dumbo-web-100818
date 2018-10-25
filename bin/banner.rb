@@ -48,9 +48,9 @@ end
 
 def goodbye_banner
   puts "---------------------------------------------"
-  puts "-                                           -"
-  puts "-                 GOODBYE                   -"
-  puts "-                                           -"
+  puts "🐐                                           🐐"
+  puts "🐐                 GOODBYE                   🐐"
+  puts "🐐                                           🐐"
   puts "---------------------------------------------"
 end
 

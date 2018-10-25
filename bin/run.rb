@@ -44,7 +44,7 @@ def user_type
   if user == "New User"
     # puts "Type new username"
     newusername = $prompt.ask("Type new username")
-    if !User.exists?(username: newusername) && newusername.length > 1
+    if !User.exists?(username: newusername) && newusername.length > 0
       realname = $prompt.ask("Type in REAL name:")
       temppass = $prompt.mask("Type new password: ")
     # find group ++++++++++++++++++++++++++++++++++++++++++++++
@@ -123,13 +123,12 @@ end
 def homepage(user_instance)
   puts `clear`
 
-  `afplay sounds/Button-beep-tone.mp3`
 
-  #`afplay sounds/Goat-noise.mp3`
+  `afplay sounds/beeping.mp3`
 
   homepage_banner
   # `say -v Alex "Welcome to JOURNALS #{user_instance.name}!"`
-  `say -v Samantha "How is your goat? #{user_instance.name}!!"`
+  `say -v Samantha "How is your GOAT #{user_instance.name}!!"`
   choose = $prompt.select("Choose an option", ["CREATE NOTES", "VIEW/EDIT NOTES", "SETTINGS", "LOGOUT", "QUIT"])
   # puts "Please choose an options. (1 - 5)"
   # puts "1 CREATE NOTES"
@@ -160,7 +159,7 @@ end
 def settings(user_instance)
   puts `clear`
 
-  `afplay sounds/Button-beep-tone.mp3`
+  `afplay sounds/beeping.mp3`
 
 
   settings_banner
@@ -198,7 +197,7 @@ end
 def add_group(user_instance)
   puts `clear`
 
-  `afplay sounds/Button-beep-tone.mp3`
+  `afplay sounds/beeping.mp3`
 
   # `afplay sounds/Goat-noise.mp3`
 
@@ -225,9 +224,7 @@ end
 def group_functions(user_instance)
   puts `clear`
 
-  `afplay sounds/Button-beep-tone.mp3`
-
-  # `afplay sounds/Goat-noise.mp3`
+  `afplay sounds/beeping.mp3`
 
   settings_banner
   choose = $prompt.select("Choose an option", ["ADD GROUP", "CHANGE GROUP", "RETURN TO HOMEPAGE"])
@@ -243,7 +240,7 @@ end
 def edit_group(user_instance)
   puts `clear`
 
-  `afplay sounds/Button-beep-tone.mp3`
+  `afplay sounds/beeping.mp3`
 
 
 
@@ -252,7 +249,7 @@ def edit_group(user_instance)
 
   puts `clear`
 
-  `afplay sounds/Button-beep-tone.mp3`
+  `afplay sounds/beeping.mp3.mp3`
 
 
   addsubject_banner
@@ -268,7 +265,7 @@ end
   def add_subject(user_instance)
     puts `clear`
 
-    `afplay sounds/Button-beep-tone.mp3`
+    `afplay sounds/beeping.mp3.mp3`
 
     addsubject_banner
     puts "**Enter [cancel] at any time to cancel**"
@@ -304,12 +301,13 @@ end
 def change_name(user_instance)
   puts `clear`
 
-  `afplay sounds/Button-beep-tone.mp3`
+  `afplay sounds/beeping.mp3.mp3`
 
 
   changename_banner
-  puts "Please enter new username"
-  name = gets.chomp.to_s
+  name = $prompt.ask("Please enter new password")
+  # puts "Please enter new username"
+  # name = gets.chomp.to_s
   user_instance.name = name
   puts "Your new username is #{name}"
   spinner = TTY::Spinner.new("Returning home :spinner :spinner :spinner ", format: :spin_2)
@@ -324,13 +322,13 @@ end
 def change_pass(user_instance)
   puts `clear`
 
-  `afplay sounds/Button-beep-tone.mp3`
 
-  # `afplay sounds/Goat-noise.mp3`
+  `afplay sounds/beeping.mp3`
 
   changepass_banner
-  puts "Please enter new password"
-  pass = gets.chomp.to_s
+  pass = $prompt.mask("Please enter new password")
+  # puts "Please enter new password"
+  # pass = gets.chomp.to_s
   user_instance.password = pass
   puts "Your new password is #{'*' * pass.length}"
   # puts "Returning to homepage."
@@ -375,9 +373,9 @@ end
 def logout
   puts `clear`
 
-  `afplay sounds/Button-beep-tone.mp3`
+  `afplay sounds/beeping.mp3`
 
-  # `afplay sounds/Goat-noise.mp3`
+  # `afplay sounds/beeping.mp3`
 
   user_instance = nil
   logout_banner
@@ -420,7 +418,7 @@ def modmode
          elsif choose2 == "USER NOTES"
            if lalala.notes.length > 0
              puts `clear`
-             #`afplay sounds/Goat-sound-effect.mp3`
+             `afplay sounds/beeping.mp3`
              viewnotes_banner
              yar = []
            user_instance.notes.each do |note|
@@ -486,7 +484,7 @@ def modmode
              end
          elsif choose2 == "CREATE NEW USER"
            newusername = $prompt.ask("Type new username")
-           if !User.exists?(username: newusername) && newusername.length > 1
+           if !User.exists?(username: newusername) && newusername.length > 0
              realname = $prompt.ask("Type in REAL name:")
              temppass = $prompt.mask("Type new password: ")
 
@@ -507,4 +505,5 @@ def modmode
          title
        end
 
-end# binding.pry
+end
+# binding.pry
