@@ -4,6 +4,7 @@ require_relative '../config/environment'
 def dance
   block = proc { | response | response.read_body do | chunk | puts chunk end }
   RestClient::Request.execute(method: :get, url: 'parrot.live', block_response: block, headers: {'user-agent': '', 'content-type':'text'})
+
 end
 # ----------------------------------------------
 def user_type
@@ -13,8 +14,29 @@ def user_type
 
   # `afplay sounds/Goat-noise.mp3`
 
+#   prompt.on(:keypress) do |event|
+#     if event.value == 'up arrow'
+#       prompt.trigger (click_sound)
+#     end
+#     if event.value =='down arrow'
+#       prompt.trigger (click_sound)
+#     end
+#   end
+#
+# def click_sound
+#   `afplay /keybaord_tap.mp3`
+# end
+
+
   login_banner
   user = $prompt.select("Are you a new user?", ["New User", "Existing User"])
+  #---------------Cory sound clicks-----------------
+
+
+
+
+
+  #---------------sound clicks end-------------------
   # puts "1. New User"
   # puts "2. Existing User"
   # user = gets.chomp.to_i
@@ -66,6 +88,9 @@ def login
   elsif name == "partyhard"
     t1 = Thread.new do
       dance
+      sleep(3)
+      puts 'break'
+      binding.pry
     end
     `afplay sounds/130503_tokyo_Drift__REMAKE_BABY.mp3`
     t1.join
