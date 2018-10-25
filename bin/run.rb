@@ -64,7 +64,6 @@ def user_type
     login
   end
 end
-
 # LOGIN-------------------------------------------------
 def login
 
