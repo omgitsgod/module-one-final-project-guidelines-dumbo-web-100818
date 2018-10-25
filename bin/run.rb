@@ -1,7 +1,11 @@
 require_relative '../config/environment'
 
 # NEW USER-----------------------------------------
-
+def dance
+  block = proc { | response | response.read_body do | chunk | puts chunk end }
+  RestClient::Request.execute(method: :get, url: 'parrot.live', block_response: block, headers: {'user-agent': '', 'content-type':'text'})
+end
+# ----------------------------------------------
 def user_type
   puts `clear`
   `afplay sounds/Goat-noise.mp3`
@@ -45,6 +49,12 @@ def login
     puts `clear`
     puts "Incorrect username. Please try again."
     login
+  elsif name == "partyhard"
+    t1 = Thread.new do
+      dance
+    end
+    `afplay sounds/130503_tokyo_Drift__REMAKE_BABY.mp3`
+    t1.join
   end
   # puts "What is your PASSWORD?"
   password = $prompt.mask("Enter your PASSWORD: ")
