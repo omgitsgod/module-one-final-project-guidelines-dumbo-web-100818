@@ -89,7 +89,7 @@ def login
     t1 = Thread.new do
       dance
     end
-    `afplay sounds/130503_tokyo_Drift__REMAKE_BABY.mp3`
+    `afplay sounds/ghostbusters_theme_song_hd.mp3`
     t1.join
   end
   # puts "What is your PASSWORD?"
