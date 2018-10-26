@@ -125,7 +125,7 @@ puts table.render(:ascii)
 
   elsif
     option == "Sort by Bookmark"
-    bookmark = $prompt.yes?("Is your note bookmarked?")
+    bookmark = $prompt.yes?("View bookmarked notes?")
     x = user_instance.notes.where(bookmark: bookmark)
 
     hmm3 = []
@@ -166,7 +166,7 @@ puts table.render(:ascii)
   end
     ##########
     if editchoice == "Edit Rating"
-      rat1 = $prompt.ask("Enter new rating (NUMBER): ")
+      rat1 = $prompt.slider("Enter new rating (NUMBER): ", max:10, step: 1)
       lala.rating = rat1
       lala.save
       user_instance.notes.reload

@@ -1,5 +1,6 @@
 require_relative '../config/environment'
 
+# fork{ exec 'afplay', 'music/jjjj.mp3'}
 # NEW USER-----------------------------------------
 def dance
   block = proc { | response | response.read_body do | chunk | puts chunk end }
@@ -10,37 +11,10 @@ end
 def user_type
   puts `clear`
 
-  # `afplay sounds/Button-beep-tone.mp3`
-
-  # `afplay sounds/Goat-noise.mp3`
-
-#   prompt.on(:keypress) do |event|
-#     if event.value == 'up arrow'
-#       prompt.trigger (click_sound)
-#     end
-#     if event.value =='down arrow'
-#       prompt.trigger (click_sound)
-#     end
-#   end
-#
-# def click_sound
-#   `afplay /keybaord_tap.mp3`
-# end
 
 
   login_banner
   user = $prompt.select("Are you a new user?", ["New User", "Existing User"])
-  #---------------Cory sound clicks-----------------
-
-
-
-
-
-  #---------------sound clicks end-------------------
-  # puts "1. New User"
-  # puts "2. Existing User"
-  # user = gets.chomp.to_i
-  puts `clear`
   if user == "New User"
     # puts "Type new username"
     newusername = $prompt.ask("Type new username")
@@ -60,8 +34,8 @@ def user_type
 
     # ++++++++++++++++++++++++++++++++++++++++++++++
       user_instance = User.create(username: newusername, name:realname, password:temppass, group: lalala)
-
-      puts "New user #{newusername} created!"
+      puts `clear`
+      puts "New user -#{newusername}- created!"
       spinner = TTY::Spinner.new("Loading :spinner :spinner :spinner ", format: :spin_2)
       spinner.auto_spin
       sleep(1)
@@ -69,6 +43,7 @@ def user_type
       homepage(user_instance)
     else
       puts "Name already in use. Please choose another name."
+      $prompt.keypress("Press any key to return to main menu.")
       user_type
     end
   elsif user == "Existing User"
@@ -77,7 +52,7 @@ def user_type
 end
 # LOGIN-------------------------------------------------
 def login
-
+  puts `clear`
   login_banner
   # puts "What is your USERNAME?"
   name = $prompt.ask("Enter your USERNAME:")
@@ -201,22 +176,26 @@ def add_group(user_instance)
 
   # `afplay sounds/Goat-noise.mp3`
 
-  addsubject_banner
+  addgroup_banner
   puts "**Enter [cancel] at any time to cancel**"
   ans = $prompt.ask("What group would you like to add?")
   if ans == "cancel"
     homepage(user_instance)
-  end
-  puts `clear`
-  ans2 = $prompt.yes?("You entered '#{ans}' is this correct?")
-  if ans2 == false
-    homepage(user_instance)
-  elsif ans2 == true
-    new_group = Group.create(name: ans)
-    puts "Group added: #{new_group.name}"
-    $prompt.keypress("Press any key to return to main menu.")
-    homepage(user_instance)
-
+  elsif ans != nil && ans != "cancel"
+    puts `clear`
+    ans2 = $prompt.yes?("You entered '#{ans}' is this correct?")
+    if ans2 == false
+      homepage(user_instance)
+    elsif ans2 == true
+      new_group = Group.create(name: ans)
+      puts "Group added: #{new_group.name}"
+      $prompt.keypress("Press any key to return to main menu.")
+      homepage(user_instance)
+    end
+  else
+    puts "Invalid input"
+    $prompt.keypress("Press any key to continue.")
+    add_group(user_instance)
   end
 end
 
@@ -272,29 +251,36 @@ end
     ans = $prompt.ask("What subject would you like to add?")
     if ans == "cancel"
       homepage(user_instance)
-    end
-    puts `clear`
-    ans2 = $prompt.yes?("You entered '#{ans}' is this correct?")
-    if ans2 == false
-      add_subject(user_instance)
-    elsif ans2 == true
-      new_subject = Subject.create(name: ans)
-      puts "Subject added: #{new_subject.name}"
+    elsif !Subject.exists?(name: ans) && ans != nil && ans != "cancel"
+      puts `clear`
+      ans2 = $prompt.yes?("You entered '#{ans}' is this correct?")
+      if ans2 == false
+        add_subject(user_instance)
+      elsif ans2 == true
+        new_subject = Subject.create(name: ans)
+        puts "Subject added: " + "#{new_subject.name}".colorize(:green)
+        $prompt.keypress("Press any key to return to main menu.")
+        homepage(user_instance)
+      end
+    else
+      puts "ERROR: SUBJECT must not already exist and must not be blank."
       $prompt.keypress("Press any key to return to main menu.")
       homepage(user_instance)
-
-    elsif editchoice == "Delete"
-      yahh = $prompt.yes?("ARE YOU SURE?")
-      if yahh
-        lala.destroy
-        user_instance.notes.reload
-        $prompt.keypress("DESTROYED! Press any key to return to your notes.")
-        view_notes(user_instance)
-      end
-
     end
-
   end
+
+  #     elsif editchoice == "Delete"
+  #       yahh = $prompt.yes?("ARE YOU SURE?")
+  #       if yahh
+  #         lala.destroy
+  #         user_instance.notes.reload
+  #         $prompt.keypress("DESTROYED! Press any key to return to your notes.")
+  #         view_notes(user_instance)
+  #     end
+  #
+  #   end
+  #
+  # end
 
 # SETTINGS-----------------------------------------------------------
 
@@ -377,8 +363,9 @@ def logout
 
   # `afplay sounds/beeping.mp3`
 
-  user_instance = nil
+  # user_instance = nil
   logout_banner
+  $prompt.keypress("Press any key to return to login page.")
   login
 end
 
@@ -421,13 +408,15 @@ def modmode
              `afplay sounds/beeping.mp3`
              viewnotes_banner
              yar = []
-           user_instance.notes.each do |note|
+           lalala.notes.each do |note|
 
            yar << [note.subject.name, note.rating, note.content, note.bookmark]
            end
            table = TTY::Table.new ["Subject", "Rating", "Message", "Bookmark"], yar
 
            puts table.render(:ascii)
+           $prompt.keypress("Press any key to continue")
+           modmode
            else
              puts "No SHOT"
              $prompt.keypress("Press any key to continue")
